@@ -1,4 +1,4 @@
-import {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function DClock() {
   const [time, setTime] = useState(new Date());
@@ -7,15 +7,15 @@ function DClock() {
     const id = setInterval(() => {
       setTime(new Date());
     }, 1000);
-    return (() => clearInterval(id))
+    return () => clearInterval(id);
   }, []);
-  
+
   return (
     <div>
       <h1>Digital Clock</h1>
       <span>{time.toLocaleTimeString()}</span>
     </div>
-  )
+  );
 }
 
 export default DClock;

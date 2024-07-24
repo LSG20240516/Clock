@@ -4,3 +4,53 @@ svg {
     background-color: #f0f0f0;
     border-radius: 50%;
 }
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.input-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 중앙 정렬 */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    /* 텍스트와 입력창 사이 간격 조정 */
+}
+
+.input-container p {
+    margin-right: 10px;
+    /* 텍스트와 입력창 사이의 간격 */
+}
+
+.input-section input {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    /* 필요에 따라 조정 */
+}
+
+.input-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.input-section p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: green;
+}
