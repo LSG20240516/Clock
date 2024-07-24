@@ -116,13 +116,13 @@ const Clock = ({ difficulty }) => {
     const tickLength = radius * 0.1;
     const majorTickLength = radius * 0.2;
 
-    const hour = time.getHours() % 12;
-    const minute = time.getMinutes();
-    const second = time.getSeconds();
+  const hour = time.getHours() % 12;
+  const minute = time.getMinutes();
+  const second = time.getSeconds();
 
-    const hourAngle = ((hour + minute / 60) / 12) * 360;
-    const minuteAngle = ((minute + second / 60) / 60) * 360;
-    const secondAngle = (second / 60) * 360;
+  const hourAngle = ((hour + minute / 60) / 12) * 360;
+  const minuteAngle = ((minute + second / 60) / 60) * 360;
+  const secondAngle = (second / 60) * 360;
 
     const calculateHandPosition = (angle, length) => {
         const radian = (angle - 90) * (Math.PI / 180);
@@ -131,6 +131,7 @@ const Clock = ({ difficulty }) => {
             y: centerY + length * Math.sin(radian),
         };
     };
+  
 
     const renderTicks = () => {
         const ticks = [];
@@ -198,9 +199,9 @@ const Clock = ({ difficulty }) => {
         return numbers;
     };
 
-    const { x: hourX, y: hourY } = calculateHandPosition(hourAngle, hourHandLength);
-    const { x: minuteX, y: minuteY } = calculateHandPosition(minuteAngle, minuteHandLength);
-    const { x: secondX, y: secondY } = calculateHandPosition(secondAngle, secondHandLength);
+  const { x: hourX, y: hourY } = calculateHandPosition(hourAngle, hourHandLength);
+  const { x: minuteX, y: minuteY } = calculateHandPosition(minuteAngle, minuteHandLength);
+  const { x: secondX, y: secondY } = calculateHandPosition(secondAngle, secondHandLength);
 
     return (
         <div>
