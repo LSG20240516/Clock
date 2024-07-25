@@ -13,7 +13,7 @@ function DClock() {
 
   return (
     <div>
-      <h1 className='dctitle'>Digital Clock</h1>
+      <h1 className='dctitle'></h1>
       <div className='dclock'>
         <span>{time.toLocaleTimeString()}</span>
       </div>

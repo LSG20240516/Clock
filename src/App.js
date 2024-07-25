@@ -7,13 +7,14 @@ const App = () => {
 
   return (
     <div>
-      <h1>Analog Clock</h1>
+      <h1 />
       <div className="controls">
         <button onClick={() => setDifficulty('current')}>현재시간</button>
         <button onClick={() => setDifficulty('easy')}>쉬움</button>
         <button onClick={() => setDifficulty('medium')}>보통</button>
         <button onClick={() => setDifficulty('hard')}>어려움</button>
       </div>
+      <h1 />
       <Clock difficulty={difficulty} />
       {difficulty === 'current' && <DClock />}
     </div>
