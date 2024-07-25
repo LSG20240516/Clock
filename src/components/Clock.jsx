@@ -24,7 +24,7 @@ const Clock = ({ difficulty }) => {
             randomTime.setSeconds(Math.floor(Math.random() * 60));
             console.log(`random time: ${randomTime}`);
             setTime(randomTime);
-            if (difficulty === 'hard') {
+            if (difficulty === 'veryhard') {
                 if(randomTime.getHours() < 12) {
                     setIsAM(true);
                 } else {
@@ -92,10 +92,12 @@ const Clock = ({ difficulty }) => {
         let isCorrect = false;
         
         if (difficulty === 'easy') {
-            isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute;
+            isCorrect = isCorrectHour12;
         } else if (difficulty === 'medium') {
-            isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute && inputSecondNum === currentSecond;
+            isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute;
         } else if (difficulty === 'hard') {
+            isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute && inputSecondNum === currentSecond;
+        } else if (difficulty === 'veryhard') {
             isCorrect = isCorrectHour12 &&
                         inputMinuteNum === currentMinute &&
                         inputSecondNum === currentSecond &&
@@ -210,7 +212,7 @@ const Clock = ({ difficulty }) => {
                 <circle cx={centerX} cy={centerY} r="3" fill="black" />
                 {renderTicks()}
                 {renderNumbers()}
-                {difficulty === 'easy' && renderMinuteNumbers()}
+                {renderMinuteNumbers()}
                 <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
                 <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />
                 <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />
@@ -218,7 +220,7 @@ const Clock = ({ difficulty }) => {
             {difficulty !== 'current' && (
                 <div className="input-section">
                     <div className="input-container">
-                        {difficulty === 'hard' && (
+                        {difficulty === 'veryhard' && (
                             <p>{isAM ? '오전' : '오후'}</p>
                         )}
                         <input
@@ -227,13 +229,15 @@ const Clock = ({ difficulty }) => {
                             onChange={handleInputChange(setInputHour)}
                             placeholder="시"
                         />
-                        <input
-                            type="text"
-                            value={inputMinute}
-                            onChange={handleInputChange(setInputMinute)}
-                            placeholder="분"
-                        />
                         {difficulty !== 'easy' && (
+                            <input
+                                type="text"
+                                value={inputMinute}
+                                onChange={handleInputChange(setInputMinute)}
+                                placeholder="분"
+                            />
+                        )}
+                        {difficulty !== 'easy' && difficulty !== 'medium' && (
                             <input
                                 type="text"
                                 value={inputSecond}
@@ -241,7 +245,7 @@ const Clock = ({ difficulty }) => {
                                 placeholder="초"
                             />
                         )}
-                        {difficulty === 'hard' && (
+                        {difficulty === 'veryhard' && (
                             <input
                                 type="text"
                                 value={input24Hour}
