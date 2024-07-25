@@ -25,7 +25,7 @@ const Clock = ({ difficulty }) => {
             console.log(`random time: ${randomTime}`);
             setTime(randomTime);
             if (difficulty === 'veryhard') {
-                if(randomTime.getHours() < 12) {
+                if (randomTime.getHours() < 12) {
                     setIsAM(true);
                 } else {
                     setIsAM(false);
@@ -33,7 +33,7 @@ const Clock = ({ difficulty }) => {
             }
         }
     }, [difficulty]);
-    
+
 
     useEffect(() => {
         if (isRunning) {
@@ -62,14 +62,14 @@ const Clock = ({ difficulty }) => {
         // 현재 시간 (24시간제)
         const currentHour24 = time.getHours();
         const currentMinute = time.getMinutes();
-        const currentSecond = time.getSeconds();    
+        const currentSecond = time.getSeconds();
         console.log(currentHour24);
         console.log(currentMinute);
         console.log(currentSecond);
-        
+
         // 현재 시간 (12시간제)
         const currentHour12 = (currentHour24 % 12) || 12; // 0시는 12시로 표시
-        
+
         // 입력값 변환
         const inputHourNum = isNaN(parseInt(inputHour, 10)) ? -1 : parseInt(inputHour, 10);
         const inputMinuteNum = isNaN(parseInt(inputMinute, 10)) ? -1 : parseInt(inputMinute, 10);
@@ -84,13 +84,13 @@ const Clock = ({ difficulty }) => {
             adjusted24Hour += 12; // 오후 시간으로 조정
         }
         const is24HourCorrect = adjusted24Hour === currentHour24;
-        
+
         // 12시간제 시간 체크
         const isCorrectHour12 = inputHourNum === currentHour12;
-        
+
         // 최종 정답 체크
         let isCorrect = false;
-        
+
         if (difficulty === 'easy') {
             isCorrect = isCorrectHour12;
         } else if (difficulty === 'medium') {
@@ -99,15 +99,15 @@ const Clock = ({ difficulty }) => {
             isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute && inputSecondNum === currentSecond;
         } else if (difficulty === 'veryhard') {
             isCorrect = isCorrectHour12 &&
-                        inputMinuteNum === currentMinute &&
-                        inputSecondNum === currentSecond &&
-                        is24HourCorrect;
+                inputMinuteNum === currentMinute &&
+                inputSecondNum === currentSecond &&
+                is24HourCorrect;
         }
         setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
     };
-    
-    
-    
+
+
+
 
     const radius = 200;
     const centerX = radius;
@@ -118,13 +118,13 @@ const Clock = ({ difficulty }) => {
     const tickLength = radius * 0.1;
     const majorTickLength = radius * 0.2;
 
-  const hour = time.getHours() % 12;
-  const minute = time.getMinutes();
-  const second = time.getSeconds();
+    const hour = time.getHours() % 12;
+    const minute = time.getMinutes();
+    const second = time.getSeconds();
 
-  const hourAngle = ((hour + minute / 60) / 12) * 360;
-  const minuteAngle = ((minute + second / 60) / 60) * 360;
-  const secondAngle = (second / 60) * 360;
+    const hourAngle = ((hour + minute / 60) / 12) * 360;
+    const minuteAngle = ((minute + second / 60) / 60) * 360;
+    const secondAngle = (second / 60) * 360;
 
     const calculateHandPosition = (angle, length) => {
         const radian = (angle - 90) * (Math.PI / 180);
@@ -133,7 +133,7 @@ const Clock = ({ difficulty }) => {
             y: centerY + length * Math.sin(radian),
         };
     };
-  
+
 
     const renderTicks = () => {
         const ticks = [];
@@ -201,9 +201,9 @@ const Clock = ({ difficulty }) => {
         return numbers;
     };
 
-  const { x: hourX, y: hourY } = calculateHandPosition(hourAngle, hourHandLength);
-  const { x: minuteX, y: minuteY } = calculateHandPosition(minuteAngle, minuteHandLength);
-  const { x: secondX, y: secondY } = calculateHandPosition(secondAngle, secondHandLength);
+    const { x: hourX, y: hourY } = calculateHandPosition(hourAngle, hourHandLength);
+    const { x: minuteX, y: minuteY } = calculateHandPosition(minuteAngle, minuteHandLength);
+    const { x: secondX, y: secondY } = calculateHandPosition(secondAngle, secondHandLength);
 
     return (
         <div>
@@ -253,13 +253,14 @@ const Clock = ({ difficulty }) => {
                                 placeholder="24시간제 시"
                             />
                         )}
+                        <button onClick={checkAnswer}>확인</button>
                     </div>
-                    <button onClick={checkAnswer}>확인</button>
                     {message && <p>{message}</p>}
                 </div>
             )}
         </div>
     );
+
 };
 
 export default Clock;
