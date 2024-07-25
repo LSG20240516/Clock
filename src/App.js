@@ -14,6 +14,7 @@ const App = () => {
         <button onClick={() => setDifficulty('medium')}>보통</button>
         <button onClick={() => setDifficulty('hard')}>어려움</button>
       </div>
+      {/* 브랜치 확인용 */}
       <h1 />
       <Clock difficulty={difficulty} />
       {difficulty === 'current' && <DClock />}
