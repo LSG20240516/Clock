@@ -28,6 +28,7 @@ const Clock = ({ difficulty }) => {
     }
   }, [difficulty]);
 
+
   useEffect(() => {
     if (isRunning) {
       const intervalId = setInterval(() => {
@@ -97,9 +98,6 @@ const Clock = ({ difficulty }) => {
     setColor(isCorrect ? 'green' : 'red');
   };
 
-
-
-
   const radius = 200;
   const centerX = radius;
   const centerY = radius;
@@ -125,7 +123,6 @@ const Clock = ({ difficulty }) => {
       y: centerY + length * Math.sin(radian),
     };
   };
-
 
   const renderTicks = () => {
     const ticks = [];
@@ -245,6 +242,7 @@ const Clock = ({ difficulty }) => {
                 placeholder="24시간제 시"
               />
             )}
+           
             <button onClick={checkAnswer}>확인</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
