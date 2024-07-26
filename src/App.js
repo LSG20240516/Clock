@@ -20,6 +20,7 @@ const App = () => {
     <div>
       <div className="controls">
         <button onClick={() => handleDifficultyChange('current')}>현재시간</button>
+        <button onClick={() => handleDifficultyChange('veryeasy')}>매우 쉬움</button>
         <button onClick={() => handleDifficultyChange('easy')}>쉬움</button>
         <button onClick={() => handleDifficultyChange('medium')}>보통</button>
         <button onClick={() => handleDifficultyChange('hard')}>어려움</button>
