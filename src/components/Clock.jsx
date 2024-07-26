@@ -10,6 +10,7 @@ const Clock = ({ difficulty }) => {
   const [input24Hour, setInput24Hour] = useState('');
   const [message, setMessage] = useState('');
   const [isAM, setIsAM] = useState(true);
+  const [color, setColor] = useState('');
 
   console.log(`now time: ${time}`);
 
@@ -102,6 +103,7 @@ const Clock = ({ difficulty }) => {
         is24HourCorrect;
     }
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
+    setColor(isCorrect ? 'green' : 'red');
   };
 
   const radius = 200;
@@ -224,35 +226,35 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
-            
+
             {difficulty !== 'easy' && (
               <input
-              type="text"
-              value={inputMinute}
-              onChange={handleInputChange(setInputMinute)}
-              placeholder="분"
-            />
+                type="text"
+                value={inputMinute}
+                onChange={handleInputChange(setInputMinute)}
+                placeholder="분"
+              />
             )}
             {difficulty === 'hard' && (
               <div>
-              
-              <input
-                type="text"
-                value={inputSecond}
-                onChange={handleInputChange(setInputSecond)}
-                placeholder="초"
-              />
-              <input
-                type="text"
-                value={input24Hour}
-                onChange={handleInputChange(setInput24Hour)}
-                placeholder="24시간제 시"
-              />
+
+                <input
+                  type="text"
+                  value={inputSecond}
+                  onChange={handleInputChange(setInputSecond)}
+                  placeholder="초"
+                />
+                <input
+                  type="text"
+                  value={input24Hour}
+                  onChange={handleInputChange(setInput24Hour)}
+                  placeholder="24시간제 시"
+                />
               </div>
             )}
           </div>
           <button onClick={checkAnswer}>확인</button>
-          {message && <p>{message}</p>}
+          <div className='answer' style={{ color }}>{message}</div>
         </div>
       )}
     </div>
