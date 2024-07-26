@@ -80,8 +80,10 @@ const Clock = ({ difficulty }) => {
     // 최종 정답 체크
     let isCorrect = false;
 
-    if (difficulty === 'easy') {
+    if (difficulty === 'veryeasy') {
       isCorrect = isCorrectHour12;
+    } else if (difficulty === 'easy') {
+      isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute;
     } else if (difficulty === 'medium') {
       isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute;
     } else if (difficulty === 'hard') {
@@ -109,9 +111,10 @@ const Clock = ({ difficulty }) => {
   const minute = time.getMinutes();
   const second = time.getSeconds();
 
-  const hourAngle = ((hour + minute / 60) / 12) * 360;
-  const minuteAngle = ((minute + second / 60) / 60) * 360;
+  const hourAngle = ((hour + (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : minute / 60)) / 12) * 360;
+  const minuteAngle = ((minute + (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : second / 60)) / 60) * 360;
   const secondAngle = (second / 60) * 360;
+
 
   const calculateHandPosition = (angle, length) => {
     const radian = (angle - 90) * (Math.PI / 180);
@@ -198,10 +201,10 @@ const Clock = ({ difficulty }) => {
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
         {renderNumbers()}
-        {difficulty !== 'hard' && difficulty !== 'veryhard' && renderMinuteNumbers()}
+        {difficulty !== 'veryeasy' && difficulty !== 'hard' && difficulty !== 'veryhard' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
-        <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />
-        <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />
+        {difficulty !== 'veryeasy' && <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />}
+        {difficulty !== 'veryeasy' && difficulty !== 'easy' && <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />}
       </svg>
       {difficulty !== 'current' && (
         <div className="input-section">
@@ -215,15 +218,7 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
-             {difficulty === 'veryhard' && (
-              <input
-                type="text"
-                value={input24Hour}
-                onChange={handleInputChange(setInput24Hour)}
-                placeholder="24시간제 시"
-              />
-            )}
-            {difficulty !== 'easy' && (
+            {difficulty !== 'veryeasy' && (
               <input
                 type="text"
                 value={inputMinute}
@@ -231,12 +226,20 @@ const Clock = ({ difficulty }) => {
                 placeholder="분"
               />
             )}
-            {difficulty !== 'easy' && difficulty !== 'medium' && (
+            {difficulty !== 'veryeasy' && difficulty !== 'easy' && difficulty !== 'medium' && (
               <input
                 type="text"
                 value={inputSecond}
                 onChange={handleInputChange(setInputSecond)}
                 placeholder="초"
+              />
+            )}
+            {difficulty === 'veryhard' && (
+              <input
+                type="text"
+                value={input24Hour}
+                onChange={handleInputChange(setInput24Hour)}
+                placeholder="24시간제 시"
               />
             )}
            
