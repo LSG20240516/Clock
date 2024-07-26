@@ -111,7 +111,9 @@ const Clock = ({ difficulty }) => {
   const minute = time.getMinutes();
   const second = time.getSeconds();
 
+  // easy, veryeasy에서는 시침 움직임에 분의 값이 영향을 주지 않는다 (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : minute / 60)
   const hourAngle = ((hour + (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : minute / 60)) / 12) * 360;
+  // easy, veryeasy에서는 분침 움직임에 초의 값이 영향을 주지 않는다 (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : second / 60)
   const minuteAngle = ((minute + (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : second / 60)) / 60) * 360;
   const secondAngle = (second / 60) * 360;
 
@@ -196,14 +198,16 @@ const Clock = ({ difficulty }) => {
 
   return (
     <div>
-      <svg width="400" height="400" viewBox="0 0 400 400" className='clock'>
+      <svg width="400" height="400" viewBox="0 0 400 400">
         <circle cx={centerX} cy={centerY} r={radius} stroke="black" strokeWidth="2" fill="none" />
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
         {renderNumbers()}
         {difficulty !== 'veryeasy' && difficulty !== 'hard' && difficulty !== 'veryhard' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
+        {/* veryeasy가 아닐때만 표시 - 분침 */}
         {difficulty !== 'veryeasy' && <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />}
+        {/* veryeasy가 아닐때만 표시 - 초침 */}
         {difficulty !== 'veryeasy' && difficulty !== 'easy' && <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />}
       </svg>
       {difficulty !== 'current' && (
@@ -218,6 +222,7 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
+            {/* veryhard에서만 24시간제 시 입력창 표시 */}
             {difficulty === 'veryhard' && (
               <input
                 type="text"
@@ -226,7 +231,7 @@ const Clock = ({ difficulty }) => {
                 placeholder="24시간제 시"
               />
             )}
-           
+            {/* veryeasy가 아닐때만 분의 값을 입력하는 입력창 표시 */}
             {difficulty !== 'veryeasy' && (
               <input
                 type="text"
@@ -235,6 +240,7 @@ const Clock = ({ difficulty }) => {
                 placeholder="분"
               />
             )}
+            {/* veryeasy, easy, medium이 아닐때만 초의 값을 입력하는 입력창 표시 */}
             {difficulty !== 'veryeasy' && difficulty !== 'easy' && difficulty !== 'medium' && (
               <input
                 type="text"
@@ -243,7 +249,6 @@ const Clock = ({ difficulty }) => {
                 placeholder="초"
               />
             )}
-            
             <button onClick={checkAnswer}>확인</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
