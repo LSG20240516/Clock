@@ -7,7 +7,6 @@ const App = () => {
 
   return (
     <div>
-      <h1 />
       <div className="controls">
         <button onClick={() => setDifficulty('current')}>현재시간</button>
         <button onClick={() => setDifficulty('easy')}>쉬움</button>

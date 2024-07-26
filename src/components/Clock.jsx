@@ -35,6 +35,7 @@ const Clock = ({ difficulty }) => {
     }
   }, [difficulty]);
 
+
   useEffect(() => {
     if (isRunning) {
       const intervalId = setInterval(() => {
@@ -106,9 +107,6 @@ const Clock = ({ difficulty }) => {
     setColor(isCorrect ? 'green' : 'red');
   };
 
-
-
-
   const radius = 200;
   const centerX = radius;
   const centerY = radius;
@@ -133,7 +131,6 @@ const Clock = ({ difficulty }) => {
       y: centerY + length * Math.sin(radian),
     };
   };
-
 
   const renderTicks = () => {
     const ticks = [];
@@ -212,7 +209,7 @@ const Clock = ({ difficulty }) => {
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
         {renderNumbers()}
-        {difficulty !== 'easy' && difficulty !== 'veryhard' && renderMinuteNumbers()}
+        {difficulty !== 'hard' && difficulty !== 'veryhard' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
         <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />
         <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />
@@ -229,6 +226,14 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
+             {difficulty === 'veryhard' && (
+              <input
+                type="text"
+                value={input24Hour}
+                onChange={handleInputChange(setInput24Hour)}
+                placeholder="24시간제 시"
+              />
+            )}
             {difficulty !== 'easy' && (
               <input
                 type="text"
@@ -245,14 +250,7 @@ const Clock = ({ difficulty }) => {
                 placeholder="초"
               />
             )}
-            {difficulty === 'veryhard' && (
-              <input
-                type="text"
-                value={input24Hour}
-                onChange={handleInputChange(setInput24Hour)}
-                placeholder="24시간제 시"
-              />
-            )}
+           
             <button onClick={checkAnswer}>확인</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
