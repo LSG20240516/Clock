@@ -28,7 +28,6 @@ const Clock = ({ difficulty }) => {
     }
   }, [difficulty]);
 
-
   useEffect(() => {
     if (isRunning) {
       const intervalId = setInterval(() => {
