@@ -5,7 +5,7 @@ import './test.css';
 
 const App = () => {
   const [difficulty, setDifficulty] = useState('current');
-  const [buttontext, setButtonText] = useState('현재시각');
+  const [buttontext, setButtonText] = useState('현재시간');
 
   const handleDifficultyChange = (newDifficulty, text) => {
     setButtonText(text);
