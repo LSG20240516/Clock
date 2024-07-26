@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Clock from './components/Clock';
 import DClock from './components/DClock';
+import './test.css';
 
 const App = () => {
   const [difficulty, setDifficulty] = useState('current');
@@ -19,12 +20,21 @@ const App = () => {
   return (
     <div>
       <div className="controls">
-        <button onClick={() => handleDifficultyChange('current')}>현재시간</button>
-        <button onClick={() => handleDifficultyChange('veryeasy')}>매우 쉬움</button>
-        <button onClick={() => handleDifficultyChange('easy')}>쉬움</button>
-        <button onClick={() => handleDifficultyChange('medium')}>보통</button>
-        <button onClick={() => handleDifficultyChange('hard')}>어려움</button>
-        <button onClick={() => handleDifficultyChange('veryhard')}>매우 어려움</button>
+
+        <input type="checkbox" id="icon" />
+        <label htmlFor="icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+        <div id='header'>
+          <button onClick={() => handleDifficultyChange('current')}>현재시간</button>
+          <button onClick={() => handleDifficultyChange('veryeasy')}>매우 쉬움</button>
+          <button onClick={() => handleDifficultyChange('easy')}>쉬움</button>
+          <button onClick={() => handleDifficultyChange('medium')}>보통</button>
+          <button onClick={() => handleDifficultyChange('hard')}>어려움</button>
+          <button onClick={() => handleDifficultyChange('veryhard')}>매우 어려움</button>
+        </div>
       </div>
       <Clock difficulty={difficulty} />
       {difficulty === 'current' && <DClock />}

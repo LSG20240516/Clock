@@ -222,6 +222,15 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
+            {/* veryhard에서만 24시간제 시 입력창 표시 */}
+            {difficulty === 'veryhard' && (
+              <input
+                type="text"
+                value={input24Hour}
+                onChange={handleInputChange(setInput24Hour)}
+                placeholder="24시간제 시"
+              />
+            )}
             {/* veryeasy가 아닐때만 분의 값을 입력하는 입력창 표시 */}
             {difficulty !== 'veryeasy' && (
               <input
@@ -240,16 +249,6 @@ const Clock = ({ difficulty }) => {
                 placeholder="초"
               />
             )}
-            {/* veryhard에서만 24시간제 시 입력창 표시 */}
-            {difficulty === 'veryhard' && (
-              <input
-                type="text"
-                value={input24Hour}
-                onChange={handleInputChange(setInput24Hour)}
-                placeholder="24시간제 시"
-              />
-            )}
-           
             <button onClick={checkAnswer}>확인</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
