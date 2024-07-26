@@ -218,6 +218,15 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
+            {difficulty === 'veryhard' && (
+              <input
+                type="text"
+                value={input24Hour}
+                onChange={handleInputChange(setInput24Hour)}
+                placeholder="24시간제 시"
+              />
+            )}
+           
             {difficulty !== 'veryeasy' && (
               <input
                 type="text"
@@ -234,15 +243,7 @@ const Clock = ({ difficulty }) => {
                 placeholder="초"
               />
             )}
-            {difficulty === 'veryhard' && (
-              <input
-                type="text"
-                value={input24Hour}
-                onChange={handleInputChange(setInput24Hour)}
-                placeholder="24시간제 시"
-              />
-            )}
-           
+            
             <button onClick={checkAnswer}>확인</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
