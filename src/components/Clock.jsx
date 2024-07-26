@@ -12,7 +12,7 @@ const Clock = ({ difficulty }) => {
   const [isAM, setIsAM] = useState(true);
   const [color, setColor] = useState('');
 
-  console.log(`now time: ${time}`);
+  // console.log(`now time: ${time}`);
 
   useEffect(() => {
     if (difficulty === 'current') {
@@ -23,7 +23,7 @@ const Clock = ({ difficulty }) => {
       randomTime.setHours(Math.floor(Math.random() * 24));
       randomTime.setMinutes(Math.floor(Math.random() * 60));
       randomTime.setSeconds(Math.floor(Math.random() * 60));
-      console.log(`random time: ${randomTime}`);
+      // console.log(`random time: ${randomTime}`);
       setTime(randomTime);
       if (difficulty === 'hard') {
         if (randomTime.getHours() < 12) {
@@ -34,7 +34,6 @@ const Clock = ({ difficulty }) => {
       }
     }
   }, [difficulty]);
-
 
   useEffect(() => {
     if (isRunning) {
@@ -64,9 +63,9 @@ const Clock = ({ difficulty }) => {
     const currentHour24 = time.getHours();
     const currentMinute = time.getMinutes();
     const currentSecond = time.getSeconds();
-    console.log(currentHour24);
-    console.log(currentMinute);
-    console.log(currentSecond);
+    // console.log(currentHour24);
+    // console.log(currentMinute);
+    // console.log(currentSecond);
 
     // 현재 시간 (12시간제)
     const currentHour12 = (currentHour24 % 12) || 12; // 0시는 12시로 표시
@@ -226,7 +225,6 @@ const Clock = ({ difficulty }) => {
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
             />
-
             {difficulty !== 'easy' && (
               <input
                 type="text"
@@ -237,7 +235,6 @@ const Clock = ({ difficulty }) => {
             )}
             {difficulty === 'hard' && (
               <div>
-
                 <input
                   type="text"
                   value={inputSecond}
