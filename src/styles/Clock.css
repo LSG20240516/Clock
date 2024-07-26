@@ -1,20 +1,26 @@
 svg {
     display: block;
     margin: auto;
+    margin-top: 30px;
     background-color: #f0f0f0;
     border-radius: 50%;
 }
 
 .controls {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
+    /* 오른쪽 정렬 */
     margin-bottom: 10px;
+    padding-right: 20px;
+    /* 오른쪽에 여백 추가 */
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    margin-left: 10px;
+    /* 버튼 사이의 간격을 조정 */
 }
 
 .input-section {
@@ -22,26 +28,22 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* 중앙 정렬 */
 }
 
 .input-container {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    /* 텍스트와 입력창 사이 간격 조정 */
+    margin: 20px 0px;
 }
 
 .input-container p {
     margin-right: 10px;
-    /* 텍스트와 입력창 사이의 간격 */
 }
 
 .input-section input {
     padding: 10px;
     font-size: 16px;
     margin-right: 10px;
-    /* 필요에 따라 조정 */
 }
 
 .input-section button {

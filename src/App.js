@@ -13,6 +13,7 @@ const App = () => {
         <button onClick={() => setDifficulty('easy')}>쉬움</button>
         <button onClick={() => setDifficulty('medium')}>보통</button>
         <button onClick={() => setDifficulty('hard')}>어려움</button>
+        <button onClick={() => setDifficulty('veryhard')}>매우 어려움</button>
       </div>
       <h1 />
       <Clock difficulty={difficulty} />

@@ -25,7 +25,7 @@ const Clock = ({ difficulty }) => {
       randomTime.setSeconds(Math.floor(Math.random() * 60));
       // console.log(`random time: ${randomTime}`);
       setTime(randomTime);
-      if (difficulty === 'hard') {
+      if (difficulty === 'veryhard') {
         if (randomTime.getHours() < 12) {
           setIsAM(true);
         } else {
@@ -57,7 +57,6 @@ const Clock = ({ difficulty }) => {
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
   };
-
   const checkAnswer = () => {
     // 현재 시간 (24시간제)
     const currentHour24 = time.getHours();
@@ -96,6 +95,8 @@ const Clock = ({ difficulty }) => {
     } else if (difficulty === 'medium') {
       isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute;
     } else if (difficulty === 'hard') {
+      isCorrect = isCorrectHour12 && inputMinuteNum === currentMinute && inputSecondNum === currentSecond;
+    } else if (difficulty === 'veryhard') {
       isCorrect = isCorrectHour12 &&
         inputMinuteNum === currentMinute &&
         inputSecondNum === currentSecond &&
@@ -104,6 +105,9 @@ const Clock = ({ difficulty }) => {
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
     setColor(isCorrect ? 'green' : 'red');
   };
+
+
+
 
   const radius = 200;
   const centerX = radius;
@@ -208,7 +212,7 @@ const Clock = ({ difficulty }) => {
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
         {renderNumbers()}
-        {difficulty === 'medium' && renderMinuteNumbers()}
+        {difficulty !== 'easy' && difficulty !== 'veryhard' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
         <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />
         <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />
@@ -216,7 +220,7 @@ const Clock = ({ difficulty }) => {
       {difficulty !== 'current' && (
         <div className="input-section">
           <div className="input-container">
-            {difficulty === 'hard' && (
+            {difficulty === 'veryhard' && (
               <p>{isAM ? '오전' : '오후'}</p>
             )}
             <input
@@ -233,24 +237,24 @@ const Clock = ({ difficulty }) => {
                 placeholder="분"
               />
             )}
-            {difficulty === 'hard' && (
-              <div>
-                <input
-                  type="text"
-                  value={inputSecond}
-                  onChange={handleInputChange(setInputSecond)}
-                  placeholder="초"
-                />
-                <input
-                  type="text"
-                  value={input24Hour}
-                  onChange={handleInputChange(setInput24Hour)}
-                  placeholder="24시간제 시"
-                />
-              </div>
+            {difficulty !== 'easy' && difficulty !== 'medium' && (
+              <input
+                type="text"
+                value={inputSecond}
+                onChange={handleInputChange(setInputSecond)}
+                placeholder="초"
+              />
             )}
+            {difficulty === 'veryhard' && (
+              <input
+                type="text"
+                value={input24Hour}
+                onChange={handleInputChange(setInput24Hour)}
+                placeholder="24시간제 시"
+              />
+            )}
+            <button onClick={checkAnswer}>확인</button>
           </div>
-          <button onClick={checkAnswer}>확인</button>
           <div className='answer' style={{ color }}>{message}</div>
         </div>
       )}
