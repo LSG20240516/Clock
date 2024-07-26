@@ -10,6 +10,7 @@ const Clock = ({ difficulty }) => {
   const [input24Hour, setInput24Hour] = useState('');
   const [message, setMessage] = useState('');
   const [isAM, setIsAM] = useState(true);
+  const [color, setColor] = useState('');
 
   console.log(`now time: ${time}`);
 
@@ -103,6 +104,7 @@ const Clock = ({ difficulty }) => {
         is24HourCorrect;
     }
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
+    setColor(isCorrect ? 'green' : 'red');
   };
 
 
@@ -254,7 +256,7 @@ const Clock = ({ difficulty }) => {
             )}
             <button onClick={checkAnswer}>확인</button>
           </div>
-          {message && <p>{message}</p>}
+          <div className='answer' style={{ color }}>{message}</div>
         </div>
       )}
     </div>
