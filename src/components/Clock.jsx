@@ -213,7 +213,7 @@ const Clock = ({ difficulty }) => {
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
         {renderNumbers()}
-        {renderMinuteNumbers()}
+        {difficulty !== 'easy' && difficulty !== 'veryhard' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
         <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />
         <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />
