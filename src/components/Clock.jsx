@@ -104,9 +104,6 @@ const Clock = ({ difficulty }) => {
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
   };
 
-
-
-
   const radius = 200;
   const centerX = radius;
   const centerY = radius;
@@ -210,7 +207,7 @@ const Clock = ({ difficulty }) => {
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
         {renderNumbers()}
-        {difficulty === 'easy' && renderMinuteNumbers()}
+        {difficulty === 'medium' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
         <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />
         <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />
@@ -229,7 +226,6 @@ const Clock = ({ difficulty }) => {
             />
             
             {difficulty !== 'easy' && (
-              
               <input
               type="text"
               value={inputMinute}
