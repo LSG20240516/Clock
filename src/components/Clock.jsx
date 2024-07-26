@@ -3,7 +3,7 @@ import '../styles/Clock.css';
 
 const Clock = ({ difficulty }) => {
   const [time, setTime] = useState(new Date());
-  const [isRunning, setIsRunning] = useState(true);
+  const [isRunning, setIsRunning] = useState(difficulty === 'current');
   const [inputHour, setInputHour] = useState('');
   const [inputMinute, setInputMinute] = useState('');
   const [inputSecond, setInputSecond] = useState('');
@@ -11,8 +11,6 @@ const Clock = ({ difficulty }) => {
   const [message, setMessage] = useState('');
   const [isAM, setIsAM] = useState(true);
   const [color, setColor] = useState('');
-
-  // console.log(`now time: ${time}`);
 
   useEffect(() => {
     if (difficulty === 'current') {
@@ -23,14 +21,9 @@ const Clock = ({ difficulty }) => {
       randomTime.setHours(Math.floor(Math.random() * 24));
       randomTime.setMinutes(Math.floor(Math.random() * 60));
       randomTime.setSeconds(Math.floor(Math.random() * 60));
-      // console.log(`random time: ${randomTime}`);
       setTime(randomTime);
       if (difficulty === 'veryhard') {
-        if (randomTime.getHours() < 12) {
-          setIsAM(true);
-        } else {
-          setIsAM(false);
-        }
+        setIsAM(randomTime.getHours() < 12);
       }
     }
   }, [difficulty]);
@@ -41,7 +34,6 @@ const Clock = ({ difficulty }) => {
       const intervalId = setInterval(() => {
         setTime(new Date());
       }, 1000);
-
       return () => clearInterval(intervalId);
     }
   }, [isRunning]);
@@ -63,9 +55,6 @@ const Clock = ({ difficulty }) => {
     const currentHour24 = time.getHours();
     const currentMinute = time.getMinutes();
     const currentSecond = time.getSeconds();
-    // console.log(currentHour24);
-    // console.log(currentMinute);
-    // console.log(currentSecond);
 
     // 현재 시간 (12시간제)
     const currentHour12 = (currentHour24 % 12) || 12; // 0시는 12시로 표시
