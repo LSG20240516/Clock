@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+
+}
+
+input[id="icon"] {
+  display: none;
+}
+
+input[id="icon"]+label {
+  position: absolute;
+  right: 0;
+  display: block;
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+  /* 커서를 올려놓을 때 모양이 바뀐다. */
+  margin: 10px;
+}
+
+input[id="icon"]+label>span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 5px;
+  border-radius: 30px;
+  background: #000;
+  transition: all 0.35s;
+  /* 진행되는 과정들을 천천히 보여줄 수 있다. 0.35초 동안 진행됨 */
+  z-index: 2;
+
+}
+
+input[id="icon"]+label>span:nth-child(1) {
+  top: 0px;
+}
+
+input[id="icon"]+label>span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  /* 엘리먼트를 변형할 때 쓴다. 비틀거나 구부리거나 돌릴 때 . 여러가지로 모양을 바꿀 때 */
+}
+
+input[id="icon"]+label>span:nth-child(3) {
+  bottom: 0px;
+}
+
+
+input[id="icon"]:checked+label>span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+input[id="icon"]:checked+label>span:nth-child(2) {
+  opacity: 0;
+}
+
+input[id="icon"]:checked+label>span:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+#header {
+  display: flex;
+  flex-direction: column;
+}
+
+#icon+label+#header {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: #333;
+  top: 0px;
+  padding: 60px 25px 25px 25px;
+  box-sizing: border-box;
+  right: -300px;
+  z-index: 1;
+  transition: all 0.35s;
+}
+
+#icon:checked+label+#header {
+  right: 0px;
+}
+
+#icon:checked+label+#header>ul>li>a {
+  color: white;
+}

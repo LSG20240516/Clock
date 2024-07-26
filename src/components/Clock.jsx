@@ -193,7 +193,7 @@ const Clock = ({ difficulty }) => {
 
   return (
     <div>
-      <svg width="400" height="400" viewBox="0 0 400 400">
+      <svg width="400" height="400" viewBox="0 0 400 400" className='clock'>
         <circle cx={centerX} cy={centerY} r={radius} stroke="black" strokeWidth="2" fill="none" />
         <circle cx={centerX} cy={centerY} r="3" fill="black" />
         {renderTicks()}
