@@ -5,8 +5,10 @@ import './test.css';
 
 const App = () => {
   const [difficulty, setDifficulty] = useState('current');
+  const [buttontext, setButtonText] = useState('현재시각');
 
-  const handleDifficultyChange = (newDifficulty) => {
+  const handleDifficultyChange = (newDifficulty, text) => {
+    setButtonText(text);
     if (newDifficulty === 'current') {
       setDifficulty(newDifficulty); // 현재 시간으로 직접 설정
     } else {
@@ -28,14 +30,15 @@ const App = () => {
           <span></span>
         </label>
         <div id='header'>
-          <button onClick={() => handleDifficultyChange('current')}>현재시간</button>
-          <button onClick={() => handleDifficultyChange('veryeasy')}>매우 쉬움</button>
-          <button onClick={() => handleDifficultyChange('easy')}>쉬움</button>
-          <button onClick={() => handleDifficultyChange('medium')}>보통</button>
-          <button onClick={() => handleDifficultyChange('hard')}>어려움</button>
-          <button onClick={() => handleDifficultyChange('veryhard')}>매우 어려움</button>
+          <button onClick={() => handleDifficultyChange('current','현재시간')}>현재시간</button>
+          <button onClick={() => handleDifficultyChange('veryeasy','매우 쉬움')}>매우 쉬움</button>
+          <button onClick={() => handleDifficultyChange('easy','쉬움')}>쉬움</button>
+          <button onClick={() => handleDifficultyChange('medium','보통')}>보통</button>
+          <button onClick={() => handleDifficultyChange('hard','어려움')}>어려움</button>
+          <button onClick={() => handleDifficultyChange('veryhard','매우 어려움')}>매우 어려움</button>
         </div>
       </div>
+      <h1>{buttontext}</h1>
       <Clock difficulty={difficulty} />
       {difficulty === 'current' && <DClock />}
     </div>
