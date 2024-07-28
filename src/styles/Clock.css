@@ -1,29 +1,74 @@
+/* 공통 버튼 스타일 */
+button {
+    padding: 12px 24px; /* 일관된 여백을 위해 조정 */
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    border: none;
+    border-radius: 8px; /* 약간 큰 테두리 반경으로 현대적인 느낌 */
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s, transform 0.2s;
+    width: auto; /* 기본 너비 설정 */
+    display: inline-block; /* 너비 자동 조정 */
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* 내비게이션 버튼 스타일 */
+.nav-buttons {
+    display: flex;
+    flex-direction: column-reverse; /* 버튼을 아래에서 위로 정렬 */
+    align-items: flex-end; /* 오른쪽 정렬 */
+    padding: 10px; /* 패딩 추가 (선택적) */
+}
+
+.nav-buttons button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px; /* 버튼 간 간격 조정 */
+    width: 100%; /* 컨테이너의 너비에 맞추기 */
+    max-width: 240px; /* 최대 너비 설정, 일반 버튼 너비와 일치하도록 조정 */
+    box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 설정 */
+}
+
+.nav-buttons button:hover {
+    background-color: #218838;
+}
+
+/* SVG 스타일 */
 svg {
     display: block;
-    margin: auto;
-    margin-top: 70px;
+    margin: 30px auto 0; /* 상단 여백 조정 */
     background-color: #f0f0f0;
     border-radius: 50%;
 }
 
+/* Controls 스타일 */
 .controls {
     display: flex;
     justify-content: flex-end;
-    /* 오른쪽 정렬 */
     margin-bottom: 10px;
     padding-right: 20px;
-    /* 오른쪽에 여백 추가 */
 }
 
+/* Header 버튼 스타일 */
 #header > button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
     margin-left: 10px;
     margin-top: 30px;
-    /* 버튼 사이의 간격을 조정 */
 }
 
+/* Input 섹션 스타일 */
 .input-section {
     margin-top: 20px;
     display: flex;
@@ -34,7 +79,7 @@ svg {
 .input-container {
     display: flex;
     align-items: center;
-    margin: 20px 0px;
+    margin: 20px 0;
 }
 
 .input-container p {
@@ -48,10 +93,11 @@ svg {
 }
 
 .input-section button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
 }
 
+/* Answer 스타일 */
 .answer {
     margin-top: 10px;
     font-size: 20px;
