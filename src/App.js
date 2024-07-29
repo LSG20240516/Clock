@@ -37,9 +37,15 @@ const App = () => {
           <span></span>
         </label>
         <div id="header">
+          <div className="nav-buttons">
+            <button onClick={() => handleComponentChange('clock')}>시계문제</button>
+            <button onClick={() => handleComponentChange('stopwatch', '스톱워치')}>스톱워치</button>
+            <button onClick={() => handleComponentChange('timer', '타이머')}>타이머</button>
+            <button onClick={() => handleComponentChange('wclock', '세계시각')}>세계시각</button>
+            <button onClick={() => handleComponentChange('current', '현재시간')}>현재시간</button>
+          </div>
           {showComponent === 'clock' && (
             <>
-              <button onClick={() => handleDifficultyChange('current', '현재시간')}>현재시간</button>
               <button onClick={() => handleDifficultyChange('veryeasy', '매우 쉬움')}>매우 쉬움</button>
               <button onClick={() => handleDifficultyChange('easy', '쉬움')}>쉬움</button>
               <button onClick={() => handleDifficultyChange('medium', '보통')}>보통</button>
@@ -47,12 +53,6 @@ const App = () => {
               <button onClick={() => handleDifficultyChange('veryhard', '매우 어려움')}>매우 어려움</button>
             </>
           )}
-          <div className="nav-buttons">
-            <button onClick={() => handleComponentChange('clock')}>시계문제</button>
-            <button onClick={() => handleComponentChange('stopwatch')}>스톱워치</button>
-            <button onClick={() => handleComponentChange('timer')}>타이머</button>
-            <button onClick={() => handleComponentChange('wclock')}>세계시각</button>
-          </div>
         </div>
       </div>
       {showComponent === 'clock' && (
@@ -62,6 +62,13 @@ const App = () => {
           {difficulty === 'current' && <DClock />}
         </>
       )}
+      {showComponent === 'current' &&
+        <>
+          <h1>{buttonText}</h1>
+          <Clock difficulty={difficulty} />
+          {difficulty === 'current' && <DClock />}
+        </>
+      }
       {showComponent === 'stopwatch' && <StopWatchPage />}
       {showComponent === 'timer' && <TimerPage />}
       {showComponent === 'wclock' && <WClock initialTimeZone="Asia/Seoul" showDifficultyButtons={true} />} {/* WClock 컴포넌트 추가 */}
