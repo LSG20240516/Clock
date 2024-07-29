@@ -9,26 +9,28 @@ const Clock = ({ difficulty }) => {
   const [inputSecond, setInputSecond] = useState('');
   const [input24Hour, setInput24Hour] = useState('');
   const [message, setMessage] = useState('');
-  const [ViewMessage, setViewMessage] = useState('');
   const [isAM, setIsAM] = useState(true);
   const [color, setColor] = useState('');
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  const generateNewProblem = () => {
+    const randomTime = new Date();
+    randomTime.setHours(Math.floor(Math.random() * 24));
+    randomTime.setMinutes(Math.floor(Math.random() * 60));
+    randomTime.setSeconds(Math.floor(Math.random() * 60));
+    setTime(randomTime);
+    setIsAM(randomTime.getHours() < 12);
+    resetAnswer();
+  };
 
   useEffect(() => {
     if (difficulty === 'current') {
       setIsRunning(true);
     } else {
       setIsRunning(false);
-      const randomTime = new Date();
-      randomTime.setHours(Math.floor(Math.random() * 24));
-      randomTime.setMinutes(Math.floor(Math.random() * 60));
-      randomTime.setSeconds(Math.floor(Math.random() * 60));
-      setTime(randomTime);
-      if (difficulty === 'veryhard') {
-        setIsAM(randomTime.getHours() < 12);
-      }
+      generateNewProblem();
     }
   }, [difficulty]);
-
 
   useEffect(() => {
     if (isRunning) {
@@ -39,47 +41,31 @@ const Clock = ({ difficulty }) => {
     }
   }, [isRunning]);
 
-  // Clear input fields when difficulty changes
-  useEffect(() => {
-    setInputHour('');
-    setInputMinute('');
-    setInputSecond('');
-    setInput24Hour('');
-    setMessage('');
-    setViewMessage('');
-  }, [difficulty]);
-
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
   };
+
   const checkAnswer = () => {
-    // 현재 시간 (24시간제)
     const currentHour24 = time.getHours();
     const currentMinute = time.getMinutes();
     const currentSecond = time.getSeconds();
+    const currentHour12 = (currentHour24 % 12) || 12;
 
-    // 현재 시간 (12시간제)
-    const currentHour12 = (currentHour24 % 12) || 12; // 0시는 12시로 표시
+    const inputHourNum = parseInt(inputHour, 10);
+    const inputMinuteNum = parseInt(inputMinute, 10);
+    const inputSecondNum = parseInt(inputSecond, 10);
+    const input24HourNum = parseInt(input24Hour, 10);
 
-    // 입력값 변환
-    const inputHourNum = isNaN(parseInt(inputHour, 10)) ? -1 : parseInt(inputHour, 10);
-    const inputMinuteNum = isNaN(parseInt(inputMinute, 10)) ? -1 : parseInt(inputMinute, 10);
-    const inputSecondNum = isNaN(parseInt(inputSecond, 10)) ? -1 : parseInt(inputSecond, 10);
-    const input24HourNum = isNaN(parseInt(input24Hour, 10)) ? -1 : parseInt(input24Hour, 10);
-
-    // 24시간제 시간 체크
     let adjusted24Hour = input24HourNum;
     if (isAM && adjusted24Hour === 12) {
-      adjusted24Hour = 0; // 오전 12시는 0시로
+      adjusted24Hour = 0;
     } else if (!isAM && adjusted24Hour < 12) {
-      adjusted24Hour += 12; // 오후 시간으로 조정
+      adjusted24Hour += 12;
     }
     const is24HourCorrect = adjusted24Hour === currentHour24;
 
-    // 12시간제 시간 체크
     const isCorrectHour12 = inputHourNum === currentHour12;
 
-    // 최종 정답 체크
     let isCorrect = false;
 
     if (difficulty === 'veryeasy') {
@@ -94,20 +80,40 @@ const Clock = ({ difficulty }) => {
       isCorrect = isCorrectHour12 &&
         inputMinuteNum === currentMinute &&
         inputSecondNum === currentSecond &&
-        input24HourNum === currentHour24;
+        is24HourCorrect;
     }
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
     setColor(isCorrect ? 'green' : 'red');
   };
 
-  const viewAnswer = () => {
-    // 현재 시간 (24시간제)
-    const currentHour24 = time.getHours();
-    const currentMinute = time.getMinutes();
-    const currentSecond = time.getSeconds();
+  const revealAnswer = () => {
+    setShowAnswer(true);
+    if (difficulty === 'veryeasy') {
+      setInputHour(time.getHours() % 12 || 12);
+    } else if (difficulty === 'easy' || difficulty === 'medium') {
+      setInputHour(time.getHours() % 12 || 12);
+      setInputMinute(time.getMinutes());
+    } else if (difficulty === 'hard') {
+      setInputHour(time.getHours() % 12 || 12);
+      setInputMinute(time.getMinutes());
+      setInputSecond(time.getSeconds());
+    } else if (difficulty === 'veryhard') {
+      setInputHour(time.getHours() % 12 || 12);
+      setInputMinute(time.getMinutes());
+      setInputSecond(time.getSeconds());
+      setInput24Hour(time.getHours());
+    }
+    setIsAM(time.getHours() < 12);
+  };
 
-    setViewMessage("정답은 " + currentHour24 + "시 " + currentMinute + "분 " + currentSecond + "초 입니다");
-  }
+  const resetAnswer = () => {
+    setShowAnswer(false);
+    setInputHour('');
+    setInputMinute('');
+    setInputSecond('');
+    setInput24Hour('');
+    setMessage('');
+  };
 
   const radius = 200;
   const centerX = radius;
@@ -122,12 +128,9 @@ const Clock = ({ difficulty }) => {
   const minute = time.getMinutes();
   const second = time.getSeconds();
 
-  // easy, veryeasy에서는 시침 움직임에 분의 값이 영향을 주지 않는다 (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : minute / 60)
   const hourAngle = ((hour + (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : minute / 60)) / 12) * 360;
-  // easy, veryeasy에서는 분침 움직임에 초의 값이 영향을 주지 않는다 (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : second / 60)
   const minuteAngle = ((minute + (difficulty === 'easy' || difficulty === 'veryeasy' ? 0 : second / 60)) / 60) * 360;
   const secondAngle = (second / 60) * 360;
-
 
   const calculateHandPosition = (angle, length) => {
     const radian = (angle - 90) * (Math.PI / 180);
@@ -163,7 +166,7 @@ const Clock = ({ difficulty }) => {
     const numbers = [];
     for (let i = 0; i < 60; i += 5) {
       const angle = (i / 60) * 360;
-      const { x, y } = calculateHandPosition(angle, radius - majorTickLength - 45); // 조정된 위치
+      const { x, y } = calculateHandPosition(angle, radius - majorTickLength - 45);
       numbers.push(
         <text
           key={i}
@@ -216,9 +219,7 @@ const Clock = ({ difficulty }) => {
         {renderNumbers()}
         {difficulty !== 'veryeasy' && difficulty !== 'hard' && difficulty !== 'veryhard' && renderMinuteNumbers()}
         <line x1={centerX} y1={centerY} x2={hourX} y2={hourY} stroke="black" strokeWidth="3" />
-        {/* veryeasy가 아닐때만 표시 - 분침 */}
         {difficulty !== 'veryeasy' && <line x1={centerX} y1={centerY} x2={minuteX} y2={minuteY} stroke="blue" strokeWidth="2" />}
-        {/* veryeasy가 아닐때만 표시 - 초침 */}
         {difficulty !== 'veryeasy' && difficulty !== 'easy' && <line x1={centerX} y1={centerY} x2={secondX} y2={secondY} stroke="red" strokeWidth="1" />}
       </svg>
       {difficulty !== 'current' && (
@@ -229,42 +230,64 @@ const Clock = ({ difficulty }) => {
             )}
             <input
               type="text"
-              value={inputHour}
+              value={showAnswer ? (time.getHours() % 12 || 12) : inputHour}
               onChange={handleInputChange(setInputHour)}
               placeholder="시"
+              readOnly={showAnswer}
             />
-            {/* veryhard에서만 24시간제 시 입력창 표시 */}
             {difficulty === 'veryhard' && (
               <input
                 type="text"
-                value={input24Hour}
+                value={showAnswer ? time.getHours() : input24Hour}
                 onChange={handleInputChange(setInput24Hour)}
                 placeholder="24시간제 시"
+                readOnly={showAnswer}
               />
             )}
-            {/* veryeasy가 아닐때만 분의 값을 입력하는 입력창 표시 */}
             {difficulty !== 'veryeasy' && (
               <input
                 type="text"
-                value={inputMinute}
+                value={showAnswer ? time.getMinutes() : inputMinute}
                 onChange={handleInputChange(setInputMinute)}
                 placeholder="분"
+                readOnly={showAnswer}
               />
             )}
-            {/* veryeasy, easy, medium이 아닐때만 초의 값을 입력하는 입력창 표시 */}
             {difficulty !== 'veryeasy' && difficulty !== 'easy' && difficulty !== 'medium' && (
               <input
                 type="text"
-                value={inputSecond}
+                value={showAnswer ? time.getSeconds() : inputSecond}
                 onChange={handleInputChange(setInputSecond)}
                 placeholder="초"
+                readOnly={showAnswer}
               />
             )}
             <button onClick={checkAnswer}>확인</button>
-            <button onClick={viewAnswer}>정답보기</button>
+            <button onClick={resetAnswer}>리셋</button>
+            <button onClick={revealAnswer}>정답 보기</button>    
+            <button onClick={generateNewProblem}>새 문제</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
-          <div className='answer'>{ViewMessage}</div>
+          {showAnswer && (
+            <div className='correct-answer'>
+              {difficulty === 'veryeasy' && (
+                <p>정답: {time.getHours() % 12 || 12}시</p>
+              )}
+              {(difficulty === 'easy' || difficulty === 'medium') && (
+                <p>정답: {time.getHours() % 12 || 12}시 {time.getMinutes()}분</p>
+              )}
+              {difficulty === 'hard' && (
+                <p>정답: {time.getHours() % 12 || 12}시 {time.getMinutes()}분 {time.getSeconds()}초</p>
+              )}
+              {difficulty === 'veryhard' && (
+                <>
+                  <p>정답: {time.getHours() % 12 || 12}시 {time.getMinutes()}분 {time.getSeconds()}초</p>
+                  <p>24시간제: {time.getHours()}시</p>
+                </>
+              )}
+              <p>{time.getHours() < 12 ? '오전' : '오후'}</p>
+            </div>
+          )}
         </div>
       )}
     </div>
