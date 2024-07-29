@@ -9,6 +9,7 @@ const Clock = ({ difficulty }) => {
   const [inputSecond, setInputSecond] = useState('');
   const [input24Hour, setInput24Hour] = useState('');
   const [message, setMessage] = useState('');
+  const [ViewMessage, setViewMessage] = useState('');
   const [isAM, setIsAM] = useState(true);
   const [color, setColor] = useState('');
 
@@ -45,6 +46,7 @@ const Clock = ({ difficulty }) => {
     setInputSecond('');
     setInput24Hour('');
     setMessage('');
+    setViewMessage('');
   }, [difficulty]);
 
   const handleInputChange = (setter) => (e) => {
@@ -97,6 +99,15 @@ const Clock = ({ difficulty }) => {
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
     setColor(isCorrect ? 'green' : 'red');
   };
+
+  const viewAnswer = () => {
+    // 현재 시간 (24시간제)
+    const currentHour24 = time.getHours();
+    const currentMinute = time.getMinutes();
+    const currentSecond = time.getSeconds();
+
+    setViewMessage("정답은 " + currentHour24 + "시 " + currentMinute + "분 " + currentSecond + "초 입니다");
+  }
 
   const radius = 200;
   const centerX = radius;
@@ -250,8 +261,10 @@ const Clock = ({ difficulty }) => {
               />
             )}
             <button onClick={checkAnswer}>확인</button>
+            <button onClick={viewAnswer}>정답보기</button>
           </div>
           <div className='answer' style={{ color }}>{message}</div>
+          <div className='answer'>{ViewMessage}</div>
         </div>
       )}
     </div>
