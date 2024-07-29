@@ -281,11 +281,10 @@ const Clock = ({ difficulty }) => {
               )}
               {difficulty === 'veryhard' && (
                 <>
-                  <p>정답: {time.getHours() % 12 || 12}시 {time.getMinutes()}분 {time.getSeconds()}초</p>
+                  <p>정답: {time.getHours() < 12 ? '오전' : '오후'} {time.getHours() % 12 || 12}시 {time.getMinutes()}분 {time.getSeconds()}초</p>
                   <p>24시간제: {time.getHours()}시</p>
                 </>
               )}
-              <p>{time.getHours() < 12 ? '오전' : '오후'}</p>
             </div>
           )}
         </div>
