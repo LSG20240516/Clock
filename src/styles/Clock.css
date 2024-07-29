@@ -1,20 +1,16 @@
 /* 공통 버튼 스타일 */
 button {
-    padding: 12px 24px;
-    /* 일관된 여백을 위해 조정 */
+    padding: 12px 24px; /* 일관된 여백을 위해 조정 */
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
     border: none;
-    border-radius: 8px;
-    /* 약간 큰 테두리 반경으로 현대적인 느낌 */
+    border-radius: 8px; /* 약간 큰 테두리 반경으로 현대적인 느낌 */
     background-color: #007bff;
     color: white;
     transition: background-color 0.3s, transform 0.2s;
-    width: auto;
-    /* 기본 너비 설정 */
-    display: inline-block;
-    /* 너비 자동 조정 */
+    width: auto; /* 기본 너비 설정 */
+    display: inline-block; /* 너비 자동 조정 */
 }
 
 button:hover {
@@ -22,18 +18,11 @@ button:hover {
     transform: scale(1.05);
 }
 
-.navmenu {
-    display: flex;
-    flex-direction: column;
-}
-
 /* 내비게이션 버튼 스타일 */
 .nav-buttons {
     display: flex;
-    flex-direction: column-reverse;
-    /* 버튼을 아래에서 위로 정렬 */
-    align-items: flex-end;
-    /* 오른쪽 정렬 */
+    flex-direction: column-reverse; /* 버튼을 아래에서 위로 정렬 */
+    align-items: flex-end; /* 오른쪽 정렬 */
 }
 
 .nav-buttons button {
@@ -43,14 +32,10 @@ button:hover {
     font-size: 16px;
     border: none;
     border-radius: 8px;
-    margin-top: 10px;
-    /* 버튼 간 간격 조정 */
-    width: 100%;
-    /* 컨테이너의 너비에 맞추기 */
-    max-width: 240px;
-    /* 최대 너비 설정, 일반 버튼 너비와 일치하도록 조정 */
-    box-sizing: border-box;
-    /* 패딩과 테두리가 너비에 포함되도록 설정 */
+    margin-top: 10px; /* 버튼 간 간격 조정 */
+    width: 100%; /* 컨테이너의 너비에 맞추기 */
+    max-width: 240px; /* 최대 너비 설정, 일반 버튼 너비와 일치하도록 조정 */
+    box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 설정 */
 }
 
 .nav-buttons button:hover {
@@ -60,8 +45,7 @@ button:hover {
 /* SVG 스타일 */
 svg {
     display: block;
-    margin: 30px auto 0;
-    /* 상단 여백 조정 */
+    margin: 30px auto 0; /* 상단 여백 조정 */
     background-color: #f0f0f0;
     border-radius: 50%;
 }
@@ -75,7 +59,7 @@ svg {
 }
 
 /* Header 버튼 스타일 */
-#header>button {
+#header > button {
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
