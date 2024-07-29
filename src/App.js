@@ -10,6 +10,7 @@ const App = () => {
   const [difficulty, setDifficulty] = useState('current'); // 기본 난이도는 현재 시간
   const [buttonText, setButtonText] = useState('현재시간');
   const [showComponent, setShowComponent] = useState('clock'); // 기본 컴포넌트는 Clock
+  const [visible, setVisible] = useState(false);
 
   const handleDifficultyChange = (newDifficulty, text) => {
     setButtonText(text);
