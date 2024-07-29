@@ -39,7 +39,6 @@ const App = () => {
         <div id="header">
           {showComponent === 'clock' && (
             <>
-              <button onClick={() => handleDifficultyChange('current', '현재시간')}>현재시간</button>
               <button onClick={() => handleDifficultyChange('veryeasy', '매우 쉬움')}>매우 쉬움</button>
               <button onClick={() => handleDifficultyChange('easy', '쉬움')}>쉬움</button>
               <button onClick={() => handleDifficultyChange('medium', '보통')}>보통</button>
@@ -52,6 +51,7 @@ const App = () => {
             <button onClick={() => handleComponentChange('stopwatch')}>스톱워치</button>
             <button onClick={() => handleComponentChange('timer')}>타이머</button>
             <button onClick={() => handleComponentChange('wclock')}>세계시각</button>
+          <button onClick={() => handleDifficultyChange('current', '현재시간')}>현재시간</button>
           </div>
         </div>
       </div>
