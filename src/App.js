@@ -5,7 +5,6 @@ import StopWatchPage from './components/StopWatchPage';
 import TimerPage from './components/TimerPage';
 import WClock from './components/WClock'; // WClock 컴포넌트 임포트
 import './test.css';
-import Navmenu from './components/Navmenu';
 
 const App = () => {
   const [difficulty, setDifficulty] = useState('current'); // 기본 난이도는 현재 시간
@@ -40,13 +39,21 @@ const App = () => {
         </label>
         <div id="header">
           <div className="nav-buttons">
-            <button onClick={() => setVisible(!visible)}>시계문제{visible ? '숨기기' : '보이기'}</button>
+            <button onClick={() => handleComponentChange('clock')}>시계문제</button>
             <button onClick={() => handleComponentChange('stopwatch', '스톱워치')}>스톱워치</button>
             <button onClick={() => handleComponentChange('timer', '타이머')}>타이머</button>
             <button onClick={() => handleComponentChange('wclock', '세계시각')}>세계시각</button>
             <button onClick={() => handleComponentChange('current', '현재시간')}>현재시간</button>
           </div>
-          {visible && < Navmenu/>}
+          {showComponent === 'clock' && (
+            <>
+              <button onClick={() => handleDifficultyChange('veryeasy', '매우 쉬움')}>매우 쉬움</button>
+              <button onClick={() => handleDifficultyChange('easy', '쉬움')}>쉬움</button>
+              <button onClick={() => handleDifficultyChange('medium', '보통')}>보통</button>
+              <button onClick={() => handleDifficultyChange('hard', '어려움')}>어려움</button>
+              <button onClick={() => handleDifficultyChange('veryhard', '매우 어려움')}>매우 어려움</button>
+            </>
+          )}
         </div>
       </div>
       {showComponent === 'clock' && (
