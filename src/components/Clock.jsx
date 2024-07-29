@@ -94,7 +94,7 @@ const Clock = ({ difficulty }) => {
       isCorrect = isCorrectHour12 &&
         inputMinuteNum === currentMinute &&
         inputSecondNum === currentSecond &&
-        is24HourCorrect;
+        input24HourNum === currentHour24;
     }
     setMessage(isCorrect ? '정답입니다' : '틀렸습니다');
     setColor(isCorrect ? 'green' : 'red');
