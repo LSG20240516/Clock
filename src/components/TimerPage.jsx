@@ -157,7 +157,7 @@ const TimerPage = () => {
         <Button onClick={resetTimer}>리셋</Button>
       </div>
       <audio ref={audioRef} preload="auto">
-        <source src="/path/to/your/alarm-sound.mp3" type="audio/mpeg" />
+        <source src="/audio/bip.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </TimerWrapper>
